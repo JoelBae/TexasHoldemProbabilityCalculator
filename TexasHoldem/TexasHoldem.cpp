@@ -282,15 +282,10 @@ bool simulate(std::vector<Card> &cards, std::vector<Card> holeCards, int numOpps
 
 int computeMonteCarlo(std::vector<Card> &holeCards, int numOpps, int trials, std::mt19937 &rng) {
     int wins = 0;
-    std::ofstream fout("results.txt");
     for (int i = 0; i < trials; ++i) {
         std::vector<Card> cards = genCards(holeCards, numOpps, rng);
         if (simulate(cards, holeCards, numOpps)) {
-            fout << "True" << std::endl;
             ++wins;
-        }
-        else {
-            fout << "False" << std::endl;
         }
     }
     return wins;
@@ -298,46 +293,52 @@ int computeMonteCarlo(std::vector<Card> &holeCards, int numOpps, int trials, std
 
 int main()
 {
-    std::random_device rd;
-    std::mt19937 rng(rd());
-    std::vector<Card> holeCards;
-    for (int i = 0; i < 2; ++i) {
-        char suit;
-        int suitVal;
-        int rank;
-        std::cout << "Choose Card:" << std::endl;
-        std::cout << "  Pick Suit: (H)earts, (D)iamonds, (C)lubs, (S)pades ";
-        std::cin >> suit;
+    char final;
+    do {
+        std::random_device rd;
+        std::mt19937 rng(rd());
+        std::vector<Card> holeCards;
+        for (int i = 0; i < 2; ++i) {
+            char suit;
+            int suitVal;
+            int rank;
+            std::cout << "Choose Card:" << std::endl;
+            std::cout << "  Pick Suit: (H)earts, (D)iamonds, (C)lubs, (S)pades ";
+            std::cin >> suit;
+            std::cout << std::endl;
+            std::cout << "Choose Card:" << std::endl;
+            std::cout << "  Pick Rank: 1 - 13 (1 = ACE, 13 = KING) ";
+            std::cin >> rank;
+            std::cout << std::endl;
+            if (suit == 'H') {
+                suitVal = 0;
+            }
+            else if (suit == 'D') {
+                suitVal = 1;
+            }
+            else if (suit == 'C') {
+                suitVal = 2;
+            }
+            else if (suit == 'S') {
+                suitVal = 3;
+            }
+            holeCards.emplace_back(suitVal, rank);
+        }
+        int numOpps;
+        std::cout << "Pick Number of Opponents: ";
+        std::cin >> numOpps ;
         std::cout << std::endl;
-        std::cout << "Choose Card:" << std::endl;
-        std::cout << "  Pick Rank: 1 - 13 (1 = ACE, 13 = KING) ";
-        std::cin >> rank;
+        std::cout << "COMPUTING PROBABILITY..." << std::endl;
+        auto start = std::chrono::steady_clock::now();
+        float result = computeMonteCarlo(holeCards, numOpps, 100000, rng) / 100000.0;
+        std::cout << "The result is: " << result << "%" << std::endl;
+        auto stop = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
+        std::cout << "In " << duration.count() << " Seconds" << std::endl;
+        std::cout << "Press R to restart. Press X to Exit ";
+        std::cin >> final;
         std::cout << std::endl;
-        if (suit == 'H') {
-            suitVal = 0;
-        }
-        else if (suit == 'D') {
-            suitVal = 1;
-        }
-        else if (suit == 'C') {
-            suitVal = 2;
-        }
-        else if (suit == 'S') {
-            suitVal = 3;
-        }
-        holeCards.emplace_back(suitVal, rank);
-    }
-    int numOpps;
-    std::cout << "Pick Number of Opponents: " << std::endl;
-    std::cin >> numOpps;
-    std::cout << std::endl;
-    std::cout << "COMPUTING PROBABILITY..." << std::endl;
-    auto start = std::chrono::steady_clock::now();
-    float result = computeMonteCarlo(holeCards, numOpps, 100000, rng) / 100000.0;
-    std::cout << "The result is: " << result << "%" << std::endl;
-    auto stop = std::chrono::steady_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
-    std::cout << "In " << duration.count() << " Seconds" << std::endl;
+    } while (final == 'R');
 
 }
 
