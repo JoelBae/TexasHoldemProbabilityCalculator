@@ -16,11 +16,16 @@ Let the following binary bit field represent a 5 card hand:
 
 $0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000$
 
+With each 4 bit grouping representing the four cards of each rank.
+
+Example: an ace queen full house can be represented as  $0111\ 0000\ 0011\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000$
+
+The last 8 bits are not representative of any cards and exists to make calculations simpler.
 
 So, for example, a 4 of a kind hand can be represented using the bit field as:
 $2^{4n+3} + 2^{4n+2} + 2^{4n+1} + 2^{4n} + 2^{4k}$
 
-Where $k, n \in \mathbb{N} < 60$
+Where $k,\ n \in \mathbb{N}\ 2 < k,\ n < 15$
 
 Theorem 1: Every 4 of a kind bit representation %(modulo) 15 = 1
 
