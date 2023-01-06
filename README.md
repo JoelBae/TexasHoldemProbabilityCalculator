@@ -1,5 +1,5 @@
 # TexasHoldemProbabilityCalculator
-Calculator for winning probability of hole cards
+Calculator for winning probability of hole cards using monte carlo method
 
 
 exe for 64 bit windows
