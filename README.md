@@ -18,7 +18,7 @@ $0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0
 
 With each 4 bit grouping representing the four cards of each rank.
 
-Example: an ace 4 of a kind with a king can be represented as  $1111\ 0002\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000$
+Example: an ace 4 of a kind with a king can be represented as  $1111\ 0001\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000$
 
 The last 8 bits are not representative of any cards and exists to make calculations simpler.
 
