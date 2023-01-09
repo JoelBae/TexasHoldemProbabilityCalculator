@@ -1,7 +1,7 @@
 # TexasHoldemProbabilityCalculator
 Command Line calculator for winning probability of hole cards using monte carlo method
 
-***This is not a full blown app, as the user input is incredibly rudimentary. There is no checking for valid inputs and results may not be accurate if user input is invalid. This repository is intended as a demonstration of an algorithm not a production level application. Maybe some day I will turn this into a full app.***
+***This is for purely entertainment purposes and is not intended for professional use**
 
 exe for 64 bit windows
 
