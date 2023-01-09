@@ -20,7 +20,7 @@ Example: an ace 4 of a kind with a king can be represented as  $1111\ 0001\ 0000
 
 The last 8 bits are not representative of any cards and exists to make calculations simpler.
 
-So, for example, a 4 of a kind hand can be represented using the bit field as:
+So, a 4 of a kind hand can be represented using the bit field as:
 $2^{4n+3} + 2^{4n+2} + 2^{4n+1} + 2^{4n} + 2^{4k}$
 
 Where $k,\ n \in \mathbb{N}\ 2 < k,\ n < 15$
