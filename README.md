@@ -3,8 +3,6 @@ Command Line calculator for winning probability of hole cards using monte carlo 
 
 ***This is for purely entertainment purposes and is not intended for professional use**
 
-exe for 64 bit windows
-
 Hand evaluation algorithm adapted and implemented from https://jonathanhsiao.com/blog/evaluating-poker-hands-with-bit-math
 .
 
