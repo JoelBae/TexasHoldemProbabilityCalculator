@@ -298,18 +298,14 @@ int main()
         std::random_device rd;
         std::mt19937 rng(rd());
         std::vector<Card> holeCards;
-        for (int i = 0; i < 2; ++i) {
+        int i = 0;
+        while (i < 2) {
             char suit;
             int suitVal;
             int rank;
             std::cout << "Choose Card:" << std::endl;
             std::cout << "  Pick Suit: (H)earts, (D)iamonds, (C)lubs, (S)pades ";
             std::cin >> suit;
-            std::cout << std::endl;
-            std::cout << "Choose Card:" << std::endl;
-            std::cout << "  Pick Rank: 1 - 13 (1 = ACE, 13 = KING) ";
-            std::cin >> rank;
-            std::cout << std::endl;
             if (suit == 'H') {
                 suitVal = 0;
             }
@@ -322,7 +318,23 @@ int main()
             else if (suit == 'S') {
                 suitVal = 3;
             }
-            holeCards.emplace_back(suitVal, rank);
+            else {
+                std::cout << "Invalid Input" << std::endl;
+                continue;
+            }
+            std::cout << std::endl;
+            std::cout << "  Pick Rank: 1 - 13 (1 = ACE, 13 = KING) ";
+            std::cin >> rank;
+            if (1 > rank || rank > 14) {
+                std::cout << "Invalid Input" << std::endl;
+                continue;
+            }
+            std::cout << std::endl;
+            if (holeCards.size() == 0 || (holeCards.size() > 0 && (holeCards[0].suit != suitVal || holeCards[0].rank != rank))) {
+                holeCards.emplace_back(suitVal, rank);
+                ++i;
+            }
+       
         }
         int numOpps;
         std::cout << "Pick Number of Opponents: ";
