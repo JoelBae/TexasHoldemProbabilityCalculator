@@ -8,7 +8,7 @@ Hand evaluation algorithm adapted and implemented from https://jonathanhsiao.com
 
 The article outlines the algorithm but does not offer code samples so this repository can be used as reference. The relevant functions are generateScore() and tieBreaker()
 
-The mathematics in the article were not proved so you can find my proofs for each theorem below (IN PROGRESS):
+Proofs for the Mathematics of the algorithm can be found below (IN PROGRESS):
 
 Let the following binary bit field represent a 5 card hand:
 
