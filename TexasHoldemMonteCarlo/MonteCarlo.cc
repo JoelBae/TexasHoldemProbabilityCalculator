@@ -1,12 +1,15 @@
 #include "MonteCarlo.h"
 #include <unordered_map>
 #include <stdint.h>
+#include <thread>
+#include <execution>
 
 using namespace TexasHoldemMonteCarlo;
 
 std::vector<Card> genCards(std::vector<Card> &holeCards, int numOpps, std::mt19937 &rng) {
     // generate pool of valid cards
     std::vector<Card> deck;
+    deck.reserve(50);
     for (int i = 1; i < 14; ++i) {
         for (int j = 0; j < 4; ++j) {
             if (((i != holeCards[0].rank) || (j != holeCards[0].suit)) && ((i != holeCards[1].rank) || (j != holeCards[1].suit))) {
@@ -16,8 +19,9 @@ std::vector<Card> genCards(std::vector<Card> &holeCards, int numOpps, std::mt199
     }
   
     // generate cards
-    std::vector<Card> cards;
     int numCards = 5 + 2 * numOpps;
+    std::vector<Card> cards;
+    cards.reserve(numCards);
     std::shuffle(deck.begin(), deck.end(), rng);
     for (int i = 0; i < numCards; ++i) {
         cards.push_back(deck[i]);
@@ -31,6 +35,7 @@ std::vector<std::vector<int>> comb(int N, int K)
     std::string bitmask(K, 1);
     bitmask.resize(N, 0);
     std::vector<std::vector<int>> combos;
+    combos.reserve(21);
     do {
         std::vector<int> combo;
         for (int i = 0; i < N; ++i)
@@ -158,7 +163,9 @@ int generateScore(std::vector<Card>& hand) {
 
 std::vector<Card>& tieBreaker(std::vector<Card>& hand1, std::vector<Card>& hand2) {
     std::vector<int> ranks1;
+    ranks1.reserve(5);
     std::vector<int> ranks2;
+    ranks2.reserve(5);
     std::unordered_map<int, int> counts1;
     std::unordered_map<int, int> counts2;
 
@@ -224,7 +231,9 @@ BestScoreHand getBest(std::vector<Card>& firstHand, std::vector<Card>& secondHan
 bool simulate(std::vector<Card> &cards, std::vector<Card> holeCards, int numOpps) {
 
     std::vector<std::vector<Card>> opps;
+    opps.reserve(numOpps);
     std::vector<Card> communityCards;
+    communityCards.reserve(5);
 
     // add cards to opponent hands
     for (int i = 0; i < numOpps; ++i) {
@@ -258,18 +267,16 @@ bool simulate(std::vector<Card> &cards, std::vector<Card> holeCards, int numOpps
     return true;
 }
 
-double TexasHoldemMonteCarlo::computeMonteCarlo(std::vector<Card> holeCards, int numOpps, int trials, std::mt19937 *rng) {
-    if (rng == nullptr) {
-        std::random_device rd{};
-        std::mt19937 mersenneTwister{rd()};
-        rng = &mersenneTwister;
-    }
+double TexasHoldemMonteCarlo::computeMonteCarlo(std::vector<Card> holeCards, int numOpps, int trials) {
+    std::random_device rd{};
+    std::mt19937 mersenneTwister{rd()};
     int wins = 0;
-    for (int i = 0; i < trials; ++i) {
-        std::vector<Card> cards = genCards(holeCards, numOpps, *rng);
+    std::vector<int> trialIterator(trials);
+    std::for_each(std::execution::par_unseq, trialIterator.begin(), trialIterator.end(), [&holeCards, &mersenneTwister, &wins, numOpps](int i) {
+        std::vector<Card> cards = genCards(holeCards, numOpps, mersenneTwister);
         if (simulate(cards, holeCards, numOpps)) {
             ++wins;
         }
-    }
+    });
     return wins / (trials * 1.0) * 100;
 }

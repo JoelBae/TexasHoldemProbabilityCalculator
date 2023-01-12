@@ -52,7 +52,7 @@ int main()
         std::cout << std::endl;
         std::cout << "COMPUTING PROBABILITY..." << std::endl;
         auto start = std::chrono::steady_clock::now();
-        double result = TexasHoldemMonteCarlo::computeMonteCarlo(holeCards, numOpps, 100000, nullptr);
+        double result = TexasHoldemMonteCarlo::computeMonteCarlo(holeCards, numOpps, 100000);
         std::cout << "The result is: " << result << "%" << std::endl;
         auto stop = std::chrono::steady_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
