@@ -1,7 +1,7 @@
 # TexasHoldemProbabilityCalculator
 Command Line calculator for winning probability of hole cards using monte carlo method
 
-***This is for purely entertainment purposes and is not intended for professional use**
+**This is for purely entertainment purposes and is not intended for professional use**
 
 Hand evaluation algorithm adapted and implemented from https://jonathanhsiao.com/blog/evaluating-poker-hands-with-bit-math
 
@@ -71,5 +71,9 @@ So using the proven lemma, we know $2^4k \equiv 2^0\ (mod\ 15) $
 And since $2^0\ \\%\ 15 = 1$, we can conclude $2^4k\ \\%\ 15 = 1$
 
 Therefore, $LHS = 1$ as desired $\blacksquare$
+
+Theorem 2: Every Full House % 15 = 10
+
+
 
 
