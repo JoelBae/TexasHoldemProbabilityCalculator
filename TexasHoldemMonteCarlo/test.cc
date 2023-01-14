@@ -1,4 +1,4 @@
-#include "MonteCarlo.h"
+#include "TexasHoldemMC.h"
 #include <chrono>
 
 int main()
