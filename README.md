@@ -4,7 +4,7 @@ Command Line calculator for winning probability of hole cards using monte carlo 
 **This is for purely entertainment purposes and is not intended for professional use**
 
 
-Proofs for the Mathematics of the algorithm can be found below (IN PROGRESS):
+Proofs for the Mathematics of the algorithm can be found below:
 
 Let the following binary bit field represent a 5 card hand:
 
