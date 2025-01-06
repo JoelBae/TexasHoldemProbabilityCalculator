@@ -69,8 +69,6 @@ And since $2^0\ \\%\ 15 = 1$, we can conclude $2^4k\ \\%\ 15 = 1$
 
 Therefore, $LHS = 1$ as desired $\blacksquare$
 
-Theorem 2: Every Full House % 15 = 10
-
 
 
 
